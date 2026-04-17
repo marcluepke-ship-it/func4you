@@ -1,0 +1,235 @@
+Build a complete single-file HTML web app called "Function 4 You" (stylized as "Function 4 U").
+
+---
+
+## CONCEPT
+A social discovery app for young people (16–25) in Dresden, Germany — think Snap Map meets 
+TikTok for real life. Users open the app on a Saturday night and instantly see what's 
+happening nearby: house parties, park hangouts, sports meetups. Public or private. Live or 
+planned. The tagline is: "Was geht heute Abend?" / "See What's Popping Near You."
+
+---
+
+## TECH STACK
+- Single HTML file (HTML + CSS + JavaScript, no frameworks, no build tools)
+- Leaflet.js (via CDN) for the interactive map
+- All mock/dummy data hardcoded in JS — NO backend needed
+- Mobile-first, but works on desktop
+- Must look production-ready, NOT like a vibe-coded prototype
+
+---
+
+## SCREENS / VIEWS (single-page app with JS view switching)
+
+### 1. SPLASH / ONBOARDING SCREEN
+- Full-screen dark background with a subtle animated gradient (purple → deep blue → black)
+- Big logo: "Function 4 U" in bold, modern sans-serif (use Google Fonts: Space Grotesk)
+- Tagline below: "Was geht heute Abend?"
+- Two buttons: "Einloggen" and "Registrieren" (both just navigate to the main app for now)
+- Small disclaimer: "For Dresden 🔥"
+
+### 2. MAIN DASHBOARD (Home Feed)
+Navigation: bottom tab bar with 4 icons:
+  - 🏠 Home (active)
+  - 🗺️ Map
+  - ➕ Create (centered, larger button, highlighted in accent color)
+  - 🔔 Notifications  
+  - 👤 Profile
+
+Home feed layout:
+- Sticky top header: "Function 4 U" logo left, city selector "Dresden ▼" right
+- Below: horizontal filter chips — "Alle", "Heute", "Live 🔴", "Outdoor", "Indoor", "Party", 
+  "Sport", "Kostenlos"
+- Event cards in a vertical scroll feed. Each card:
+  - Rounded corners (16px), subtle shadow, dark card background (#1a1a2e or similar)
+  - Top: cover image or gradient placeholder with event type emoji overlay
+  - "LIVE 🔴" or "Heute 20:00" badge (top right, pill shape)
+  - Event title (bold, 18px)
+  - Host: small avatar circle + username, e.g. "von @maxmustermann"
+  - Location line: 📍 Maraun Park, Dresden · 1.2 km entfernt
+  - Attendees: small overlapping avatar circles + "4 gehen hin"
+  - Privacy badge: "🌍 Öffentlich" (green) or "🔒 Privat" (orange)
+  - Action button: "Dabei sein →" or "Bewerben →" (for private events)
+
+### 3. MAP VIEW
+- Full-screen Leaflet map, dark tile style (use CartoDB Dark Matter tiles)
+  URL: https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}.png
+- Map centered on Dresden: [51.0504, 13.7373], zoom 13
+- Custom map markers (colored circles with emoji):
+  - 🔴 Red pulsing dot = LIVE event
+  - 🟡 Yellow dot = today, planned
+  - 🔵 Blue dot = this week
+  - 🔒 Orange dot = private event (only shown if within 500m of user mock location)
+- When clicking a marker: smooth bottom sheet slides up with event preview card
+  (event name, time, host, "Mehr anzeigen" button)
+- Top overlay: search bar "Events suchen..." with filter icon
+- Floating button bottom right: "📍 Mein Standort" (re-centers map)
+- Show a soft pulsing blue circle = mock "my location" radius (500m)
+
+### 4. CREATE EVENT MODAL / SCREEN
+Triggered by the ➕ center tab button. Full-screen overlay form:
+- Title: "Function erstellen 🎉"
+- Fields:
+  - Event-Name (text input)
+  - Typ: horizontal icon-button selector — 🎉 Party | 🏃 Sport | 🌳 Outdoor | 🎮 Gaming | 
+    🎵 Musik | 🍕 Chill
+  - Datum & Uhrzeit (date/time inputs)
+  - Ort / Adresse (text input with 📍 icon)
+  - Beschreibung (textarea, max 280 Zeichen mit live counter)
+  - Privatsphäre toggle:
+    - 🌍 Öffentlich — jeder sieht dein Event
+    - 🔒 Privat — nur Leute in 500m sehen es, Bewerbung nötig
+  - Cover-Bild Upload-Button (just UI, no real upload)
+  - Max. Teilnehmer (number input with +/- buttons)
+- Submit button: "Function erstellen 🔥" (full width, accent gradient)
+- Cancel X button top right
+
+### 5. EVENT DETAIL PAGE
+When tapping a card or map bottom sheet "Mehr anzeigen":
+- Full-screen view (or large modal)
+- Cover image/gradient at top (200px), event type emoji centered
+- Event name (h1, bold)
+- Host row: avatar + "@username" + "Folgen" button
+- Info grid: 📅 Datum | ⏰ Uhrzeit | 📍 Ort | 👥 x/max Personen
+- Description text
+- Attendee list: row of overlapping avatars + names
+- For PUBLIC events: big "Dabei sein 🎉" button
+- For PRIVATE events: 
+  - "Bewerben" section with textarea "Stell dich kurz vor..." + optional image upload button
+  - Submit: "Bewerbung senden →"
+- Mini embedded map preview (small Leaflet map, non-interactive, just showing pin)
+- Share button row: "Teilen" | "Kopieren" | "Melden"
+
+### 6. PROFILE PAGE
+- Dark background
+- Top: large avatar circle (gradient placeholder), editable username "@deinname"
+- Stats row: "3 Functions erstellt · 12 besucht · 8 Freunde"
+- "Meine Functions" section: horizontal scroll of past/upcoming event cards
+- Settings gear icon top right → simple list: Notifications, Datenschutz, Ausloggen
+
+---
+
+## DUMMY DATA (hardcode 8 events)
+Use this exact data structure in JavaScript:
+
+const events = [
+  {
+    id: 1, title: "Flanky Ball im Maraun Park", type: "Sport", emoji: "🏐",
+    host: "@kicker_dresden", time: "LIVE", date: "Heute", 
+    location: "Maraun Park, Dresden", distance: "0.8 km",
+    coords: [51.0534, 13.7423], attendees: 7, maxAttendees: 20,
+    privacy: "public", description: "Spontanes Flanky-Ball Turnier, alle willkommen! Bring Freunde mit."
+  },
+  {
+    id: 2, title: "Rooftop Chill & Music", type: "Party", emoji: "🎵",
+    host: "@vibes_dd", time: "21:00", date: "Heute",
+    location: "Neustadt, Dresden", distance: "1.4 km",
+    coords: [51.0634, 13.7323], attendees: 14, maxAttendees: 30,
+    privacy: "private", description: "Kleine Rooftop-Session mit Musik und guter Stimmung. Bewirb dich kurz."
+  },
+  {
+    id: 3, title: "Afterwork BBQ Elbufer", type: "Outdoor", emoji: "🌳",
+    host: "@elbe_crew", time: "18:30", date: "Heute",
+    location: "Elbufer Neustadt", distance: "2.1 km",
+    coords: [51.0604, 13.7243], attendees: 9, maxAttendees: 25,
+    privacy: "public", description: "BBQ am Elbufer, BYOB. Grill und Platz sind da!"
+  },
+  {
+    id: 4, title: "House Party Neustadt", type: "Party", emoji: "🎉",
+    host: "@noname_party", time: "23:00", date: "Heute",
+    location: "Alaunstraße, Neustadt", distance: "1.7 km",
+    coords: [51.0664, 13.7363], attendees: 22, maxAttendees: 40,
+    privacy: "private", description: "Nur für Leute die reinpassen. Bewirb dich mit einem Bild + wer du bist."
+  },
+  {
+    id: 5, title: "Skate Session Altmarkt", type: "Sport", emoji: "🛹",
+    host: "@skate_dd", time: "16:00", date: "Morgen",
+    location: "Altmarkt, Dresden", distance: "0.5 km",
+    coords: [51.0504, 13.7373], attendees: 5, maxAttendees: 15,
+    privacy: "public", description: "Entspannte Skate-Session. Anfänger willkommen!"
+  },
+  {
+    id: 6, title: "Gaming Nacht & Pizza", type: "Gaming", emoji: "🎮",
+    host: "@gamer_crew_dd", time: "20:00", date: "Morgen",
+    location: "Striesen, Dresden", distance: "3.2 km",
+    coords: [51.0454, 13.7573], attendees: 4, maxAttendees: 8,
+    privacy: "private", description: "PS5 + PC Setup. Pizza wird bestellt. Max 8 Leute."
+  },
+  {
+    id: 7, title: "Spontanes Kicken Ostragehege", type: "Sport", emoji: "⚽",
+    host: "@fussball_dd", time: "LIVE", date: "Heute",
+    location: "Ostragehege, Dresden", distance: "2.8 km",
+    coords: [51.0604, 13.7073], attendees: 10, maxAttendees: 22,
+    privacy: "public", description: "Wir spielen gerade! Komm einfach vorbei, noch Plätze frei."
+  },
+  {
+    id: 8, title: "Picknick & Chill Großer Garten", type: "Chill", emoji: "🍕",
+    host: "@chill_events_dd", time: "14:00", date: "Wochenende",
+    location: "Großer Garten, Dresden", distance: "1.9 km",
+    coords: [51.0354, 13.7573], attendees: 6, maxAttendees: 20,
+    privacy: "public", description: "Entspanntes Picknick mit Spielen und Musik. Jeder bringt was mit."
+  }
+]
+
+---
+
+## DESIGN SYSTEM
+Colors (CSS variables):
+  --bg-primary: #0a0a0f
+  --bg-secondary: #12121c
+  --bg-card: #1a1a2e
+  --accent-primary: #7c3aed (purple)
+  --accent-secondary: #a855f7
+  --accent-gradient: linear-gradient(135deg, #7c3aed, #ec4899)
+  --text-primary: #f8fafc
+  --text-secondary: #94a3b8
+  --live-red: #ef4444
+  --success-green: #10b981
+  --warning-orange: #f59e0b
+  --border: rgba(255,255,255,0.08)
+
+Typography:
+  - Font: Space Grotesk (Google Fonts CDN)
+  - Headings: 700 weight
+  - Body: 400/500 weight
+
+Spacing/Radius:
+  - Cards: border-radius 16px
+  - Buttons: border-radius 12px
+  - Chips/badges: border-radius 999px (pill)
+  - Box shadows: 0 4px 24px rgba(124,58,237,0.15)
+
+Animations:
+  - Live dot: CSS pulsing red animation (@keyframes pulse)
+  - View transitions: slide-in from bottom for detail views
+  - Card hover: subtle translateY(-2px) + shadow increase
+  - Bottom sheet: smooth transform translateY transition
+  - Loading: skeleton shimmer effect on cards
+
+---
+
+## IMPORTANT IMPLEMENTATION NOTES
+1. ALL in ONE single HTML file — inline CSS in <style>, inline JS in <script>
+2. Use Leaflet.js from CDN (https://unpkg.com/leaflet@1.9.4/dist/leaflet.css + js)
+3. Use Google Fonts CDN for Space Grotesk
+4. NO alerts(), NO prompt() — all interactions are DOM-based
+5. The bottom navigation must always be visible (position: fixed, bottom: 0)
+6. On mobile, the map must be full height (calc(100vh - 56px) for nav)
+7. Private events: in map view, only show them if within 500m of mock user location 
+   (user mock location: [51.0534, 13.7423] — Neustadt Dresden)
+8. The "Create" button (➕) opens an overlay/modal, not a new page
+9. Event cards must have a smooth tap/click animation (scale 0.98)
+10. The design must feel like a premium dark-mode app — think Spotify x Snapchat x TikTok
+11. Add a subtle grid or dot pattern to backgrounds for depth
+12. Notification badge: show a small red dot on the 🔔 icon (mock: 3 notifications)
+13. Include a mock "trending in Dresden" section above the feed with 3 horizontal 
+    scroll chips showing hot categories
+14. The map clustering: if 2+ events are close, show a cluster bubble with count
+15. Make it fully responsive — test layout at 375px, 414px, and 768px widths
+
+---
+
+## DELIVERABLE
+One complete, working index.html file. No external files. No npm. No framework.
+Must open directly in a browser and work without a server.
+The app should feel REAL, impressive, and investor-demo-ready.
