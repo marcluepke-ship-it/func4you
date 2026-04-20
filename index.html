@@ -2,8 +2,12 @@
 <html lang="de">
 <head>
 <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
 <meta name="theme-color" content="#ededf0" />
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="F4U">
 <title>Function 4 U</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -38,7 +42,7 @@
     --shadow-md:0 8px 24px rgba(17,17,19,0.08);
     --shadow-lg:0 20px 60px rgba(17,17,19,0.14);
 
-    --nav-h:68px;
+    --nav-h:calc(68px + env(safe-area-inset-bottom, 0px));
     --radius:12px;
     --radius-lg:16px;
 
@@ -54,9 +58,9 @@
     background:#1a1a1e;
   }
 
-  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;letter-spacing:inherit;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;font-size:inherit;letter-spacing:inherit;touch-action:manipulation;}
   input,textarea,select{font-family:inherit;color:inherit;font-size:inherit;}
-  a{color:inherit;text-decoration:none;}
+  a{color:inherit;text-decoration:none;touch-action:manipulation;}
 
   /* ---------- Mono emoji look ---------- */
   .e-mono{
@@ -87,14 +91,14 @@
      SPLASH
      ========================================================== */
   #splash{
-    position:fixed;inset:0;z-index:200;overflow:hidden;
+    position:fixed;inset:0;z-index:200;overflow-y:auto;-webkit-overflow-scrolling:touch;
     background:
       radial-gradient(80% 60% at 80% 10%, rgba(208,115,135,0.35) 0%, transparent 55%),
       radial-gradient(70% 60% at 10% 90%, rgba(98,92,140,0.3) 0%, transparent 55%),
       linear-gradient(160deg,#16161a 0%, #1f1d24 50%, #2a232a 100%);
     color:#f6f6f8;
     display:flex;flex-direction:column;justify-content:space-between;
-    padding:40px 26px 32px;
+    padding:calc(40px + env(safe-area-inset-top, 0px)) 26px calc(32px + env(safe-area-inset-bottom, 0px));
   }
   #splash .orb{
     position:absolute;border-radius:50%;filter:blur(60px);pointer-events:none;
@@ -187,16 +191,18 @@
     background:
       radial-gradient(100% 60% at 100% 0%, rgba(243,229,233,0.9) 0%, transparent 55%),
       linear-gradient(180deg, var(--bg-0) 0%, var(--bg-2) 100%);
-    display:none;flex-direction:column;padding:20px;
+    display:none;flex-direction:column;
+    padding:calc(20px + env(safe-area-inset-top, 0px)) 20px calc(20px + env(safe-area-inset-bottom, 0px));
     color:var(--text);
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
   }
   #onboarding.open{display:flex;animation:fade .3s ease;}
   .ob-top{display:flex;align-items:center;justify-content:space-between;gap:16px;}
   .ob-progress{flex:1;height:4px;background:var(--surface-3);border-radius:99px;overflow:hidden;}
   .ob-progress .bar{height:100%;background:var(--text);border-radius:99px;transition:width .35s ease;}
   .ob-skip{font-size:13px;font-weight:500;color:var(--text-2);padding:6px 10px;}
-  .ob-step{display:none;flex:1;flex-direction:column;padding-top:40px;}
-  .ob-step.active{display:flex;animation:fade .32s ease;}
+  .ob-step{display:none;flex:1;flex-direction:column;padding-top:40px;overflow-y:auto;-webkit-overflow-scrolling:touch;}
+  .ob-step.active{display:flex;animation:fade .32s ease;overflow-y:auto;-webkit-overflow-scrolling:touch;}
   .ob-kicker{font-size:12px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;}
   .ob-title{
     font-family:var(--font-display);font-weight:700;
@@ -268,7 +274,7 @@
     position:sticky;top:0;z-index:20;
     background:rgba(234,234,240,0.85);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);
     border-bottom:1px solid rgba(255,255,255,0.4);
-    padding:12px 20px;
+    padding:calc(12px + env(safe-area-inset-top, 0px)) 20px 12px;
     display:flex;align-items:center;justify-content:space-between;gap:12px;
   }
   .brand{
@@ -338,7 +344,7 @@
   .hero-strip .cta svg{width:14px;height:14px;}
 
   /* ---------- Filter chips ---------- */
-  .chips{display:flex;gap:6px;overflow-x:auto;padding:14px 20px 4px;scrollbar-width:none;-ms-overflow-style:none;}
+  .chips{display:flex;gap:6px;overflow-x:auto;padding:14px 20px 4px;scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}
   .chips::-webkit-scrollbar{display:none;}
   .chip{
     flex-shrink:0;padding:8px 14px;border-radius:999px;
@@ -358,7 +364,7 @@
   .sec-link:hover{color:var(--accent);}
 
   /* ---------- Trending ---------- */
-  .trend-row{display:flex;gap:10px;overflow-x:auto;padding:2px 20px 10px;scrollbar-width:none;}
+  .trend-row{display:flex;gap:10px;overflow-x:auto;padding:2px 20px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
   .trend-row::-webkit-scrollbar{display:none;}
   .trend-card{
     flex-shrink:0;min-width:170px;
@@ -455,7 +461,7 @@
   #map-view{padding:0;position:relative;}
   #leaflet-map{width:100%;height:calc(100vh - var(--nav-h));height:calc(100dvh - var(--nav-h));}
 
-  .map-top{position:absolute;top:14px;left:14px;right:14px;z-index:500;display:flex;gap:10px;}
+  .map-top{position:absolute;top:calc(14px + env(safe-area-inset-top, 0px));left:14px;right:14px;z-index:500;display:flex;gap:10px;}
   .search-bar{
     flex:1;display:flex;align-items:center;gap:10px;
     padding:0 14px;height:44px;border-radius:12px;
@@ -470,8 +476,8 @@
 
   /* Time filter chips */
   .map-time-row{
-    position:absolute;top:70px;left:0;right:0;z-index:500;
-    display:flex;gap:6px;overflow-x:auto;padding:0 14px;scrollbar-width:none;
+    position:absolute;top:calc(70px + env(safe-area-inset-top, 0px));left:0;right:0;z-index:500;
+    display:flex;gap:6px;overflow-x:auto;padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .map-time-row::-webkit-scrollbar{display:none;}
   .t-chip{
@@ -488,8 +494,8 @@
 
   /* Category quick chips */
   .map-cat-row{
-    position:absolute;top:112px;left:0;right:0;z-index:500;
-    display:flex;gap:6px;overflow-x:auto;padding:0 14px;scrollbar-width:none;
+    position:absolute;top:calc(112px + env(safe-area-inset-top, 0px));left:0;right:0;z-index:500;
+    display:flex;gap:6px;overflow-x:auto;padding:0 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;
   }
   .map-cat-row::-webkit-scrollbar{display:none;}
   .map-cat-row .t-chip .e{filter:grayscale(1) brightness(.7);}
@@ -613,14 +619,14 @@
     position:fixed;left:0;right:0;bottom:var(--nav-h);
     max-width:520px;margin:0 auto;
     background:var(--surface);border-top-left-radius:20px;border-top-right-radius:20px;
-    padding:10px 20px 24px;z-index:600;
-    transform:translateY(120%);transition:transform .38s cubic-bezier(.2,.8,.2,1);
+    padding:10px 20px 24px;z-index:40;
+    transform:translateY(calc(100% + var(--nav-h) + 40px));transition:transform .38s cubic-bezier(.2,.8,.2,1);
     box-shadow:0 -20px 50px rgba(17,17,19,.15);
     border-top:1px solid var(--border);
+    visibility:hidden;
   }
-  .sheet.open{transform:translateY(0);}
-  .sheet-handle{width:36px;height:4px;background:var(--border-strong);border-radius:99px;margin:4px auto 14px;}
-  .sheet-cat{display:flex;align-items:center;gap:8px;margin-bottom:8px;}
+  .sheet.open{transform:translateY(0);z-index:600;visibility:visible;}
+  .sheet-cat{display:flex;align-items:center;gap:8px;margin-bottom:8px;margin-top:6px;}
   .sheet-cat .tag{
     padding:4px 10px;border-radius:999px;background:var(--surface-2);color:var(--text-2);
     font-size:11px;font-weight:600;letter-spacing:0.03em;display:inline-flex;align-items:center;gap:5px;
@@ -678,11 +684,12 @@
   .bottom-nav{
     position:fixed;bottom:0;left:0;right:0;max-width:520px;margin:0 auto;
     height:var(--nav-h);
-    background:rgba(241,241,244,0.94);backdrop-filter:saturate(1.6) blur(18px);-webkit-backdrop-filter:saturate(1.6) blur(18px);
-    border-top:1px solid rgba(255,255,255,0.5);
+    background:#f1f1f4;
+    border-top:1px solid var(--border);
     display:flex;align-items:center;justify-content:space-around;padding:0 8px;
-    padding-bottom:env(safe-area-inset-bottom,0);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
     z-index:50;
+    box-shadow:0 -2px 10px rgba(17,17,19,0.04);
   }
   .nav-btn{
     flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
@@ -692,6 +699,11 @@
   .nav-btn svg{width:22px;height:22px;stroke-width:1.75;}
   .nav-btn.active{color:var(--text);}
   .nav-btn.active svg{stroke-width:2;}
+  .nav-btn:active{transform:scale(.97);}
+  .nav-btn[data-v="map"]{color:var(--accent);}
+  .nav-btn[data-v="map"] svg{width:24px;height:24px;color:var(--accent);stroke-width:1.85;}
+  .nav-btn[data-v="map"].active{color:var(--accent);}
+  .nav-btn[data-v="map"].active svg{stroke-width:2.15;}
   .nav-create{
     width:48px;height:48px;border-radius:14px;
     background:var(--text);color:var(--surface);
@@ -717,7 +729,8 @@
   .modal-panel{
     width:100%;max-width:520px;max-height:92vh;
     background:var(--surface);border-top-left-radius:20px;border-top-right-radius:20px;
-    overflow-y:auto;padding:20px 20px 36px;
+    overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:20px 20px calc(36px + env(safe-area-inset-bottom, 0px));
     transform:translateY(100%);transition:transform .35s cubic-bezier(.2,.8,.2,1);
   }
   .modal.open .modal-panel{transform:translateY(0);}
@@ -881,7 +894,7 @@
   .section-h{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;}
   .section-h h3{font-size:11px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-3);margin:0;}
   .section-h a{font-size:12px;color:var(--text-2);font-weight:500;}
-  .h-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;}
+  .h-scroll{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;-webkit-overflow-scrolling:touch;}
   .h-scroll::-webkit-scrollbar{display:none;}
   .mini-card{flex-shrink:0;width:180px;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:border-color .18s ease;}
   .mini-card:hover{border-color:var(--border-strong);}
@@ -918,6 +931,64 @@
   .leaflet-control-attribution a{color:var(--text-2) !important;}
 
   @media(max-width:380px){.detail-title{font-size:26px;}.splash-logo{font-size:64px;}}
+
+  /* ==========================================================
+     SEARCH OVERLAY
+     ========================================================== */
+  .search-overlay{
+    position:fixed;inset:0;z-index:1200;background:rgba(17,17,19,.42);
+    backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px);
+    display:none;flex-direction:column;
+  }
+  .search-overlay.open{display:flex;animation:fade .2s ease;}
+  .search-overlay .so-head{
+    background:var(--surface);border-bottom:1px solid var(--border);
+    padding:calc(12px + env(safe-area-inset-top, 0px)) 14px 12px;
+    display:flex;align-items:center;gap:10px;
+  }
+  .search-overlay .so-input{
+    flex:1;display:flex;align-items:center;gap:10px;
+    padding:0 14px;height:44px;border-radius:12px;
+    background:var(--surface-2);border:1px solid var(--border);
+  }
+  .search-overlay .so-input svg{width:16px;height:16px;color:var(--text-3);flex-shrink:0;}
+  .search-overlay .so-input input{flex:1;background:transparent;border:none;outline:none;font-size:14px;color:var(--text);}
+  .search-overlay .so-input input::placeholder{color:var(--text-3);}
+  .search-overlay .so-close{
+    width:40px;height:40px;border-radius:10px;background:var(--surface-2);
+    display:flex;align-items:center;justify-content:center;color:var(--text);
+  }
+  .search-overlay .so-close svg{width:16px;height:16px;}
+  .search-overlay .so-body{
+    flex:1;background:var(--surface);overflow-y:auto;-webkit-overflow-scrolling:touch;
+    padding:8px 16px calc(20px + env(safe-area-inset-bottom, 0px));
+  }
+  .search-overlay .so-empty{padding:60px 20px;text-align:center;color:var(--text-2);}
+  .search-overlay .so-empty .t{font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;}
+  .search-overlay .so-empty .s{font-size:13px;}
+
+  /* ==========================================================
+     PROFILE EDIT MODAL (piggybacks on .modal styles)
+     ========================================================== */
+
+  /* ==========================================================
+     TOUCH :active feedback
+     ========================================================== */
+  .chip:active,.t-chip:active,.trend-card:active,.mini-card:active,
+  .icon-btn:active,.city-chip:active,.map-fab:active,
+  .interest-btn:active,.goal-tile:active,.type-btn:active,.toggle-btn:active,
+  .follow-btn:active,.share-btn:active,.setting-row:active,
+  .num-btn:active,.list-item:active,.notif:active,
+  .cta:active,.card-cta:active{transform:scale(.97);}
+
+  /* ==========================================================
+     MOBILE — iOS input zoom fix + scroll-container momentum
+     ========================================================== */
+  @media (max-width:768px){
+    input,textarea,select{font-size:16px !important;}
+    .search-bar input{font-size:16px !important;}
+  }
+
 </style>
 </head>
 <body>
@@ -1040,7 +1111,7 @@
       </button>
     </div>
     <div class="ob-bot">
-      <button class="btn btn-primary btn-block" onclick="finishOnboarding()">App öffnen <svg><use href="#i-arrow-right"/></svg></button>
+      <button class="btn btn-primary btn-block" onclick="finishOnboarding()">App öffnen</button>
     </div>
   </div>
 </div>
@@ -1052,24 +1123,14 @@
 
   <!-- ========== HOME ========== -->
   <div class="view active" id="home-view">
-    <div class="header">
+    <div class="header" id="home-header">
       <div class="brand">Function<span class="f4">4</span>U</div>
       <div class="header-right">
-        <button class="city-chip">
+        <button class="city-chip" onclick="toast('Stadtauswahl kommt bald')">
           <svg><use href="#i-pin"/></svg>Dresden<svg><use href="#i-chev-down"/></svg>
         </button>
-        <button class="icon-btn"><svg><use href="#i-search"/></svg></button>
+        <button class="icon-btn" onclick="openSearch()"><svg><use href="#i-search"/></svg></button>
       </div>
-    </div>
-
-    <div class="hero-strip" onclick="showView('map')">
-      <div class="map-preview"></div>
-      <div class="txt">
-        <div class="lbl">Live auf der Karte</div>
-        <div class="val">18 Events · 6 Venues · in 3 km</div>
-        <div class="sub">Finde heraus, was gerade in Dresden läuft.</div>
-      </div>
-      <button class="cta">Karte<svg><use href="#i-arrow-up-right"/></svg></button>
     </div>
 
     <div class="chips" id="filter-chips">
@@ -1085,12 +1146,12 @@
 
     <div class="sec-head">
       <h2 class="sec-title">Trending heute</h2>
-      <a class="sec-link" href="#">Alle</a>
+      <a class="sec-link" href="#" onclick="event.preventDefault();scrollToFeed();">Alle</a>
     </div>
     <div class="trend-row">
-      <div class="trend-card"><span class="e">🎉</span><div class="t-lbl">Kategorie</div><div class="t-name">House Partys</div><div class="t-meta">12 heute Abend</div></div>
-      <div class="trend-card"><span class="e">🌳</span><div class="t-lbl">In deiner Nähe</div><div class="t-name">Elbufer Hangs</div><div class="t-meta">6 live jetzt</div></div>
-      <div class="trend-card"><span class="e">🍻</span><div class="t-lbl">Weekend</div><div class="t-name">Spieleabende</div><div class="t-meta">4 Bars heute</div></div>
+      <div class="trend-card" onclick="applyTrendFilter('Party')"><span class="e">🎉</span><div class="t-lbl">Kategorie</div><div class="t-name">House Partys</div><div class="t-meta">12 heute Abend</div></div>
+      <div class="trend-card" onclick="applyTrendFilter('Outdoor')"><span class="e">🌳</span><div class="t-lbl">In deiner Nähe</div><div class="t-name">Elbufer Hangs</div><div class="t-meta">6 live jetzt</div></div>
+      <div class="trend-card" onclick="applyTrendFilter('Chill')"><span class="e">🍻</span><div class="t-lbl">Weekend</div><div class="t-name">Spieleabende</div><div class="t-meta">4 Bars heute</div></div>
     </div>
 
     <div class="sec-head">
@@ -1107,7 +1168,7 @@
     <div class="map-top">
       <div class="search-bar">
         <svg><use href="#i-search"/></svg>
-        <input type="text" placeholder="Events, Bars oder Orte suchen..." />
+        <input type="text" id="map-search-input" placeholder="Events, Bars oder Orte suchen..." oninput="mapSearch(this.value)" />
       </div>
       <button class="map-filter" onclick="toggleLayers()"><svg><use href="#i-layers"/></svg></button>
     </div>
@@ -1152,7 +1213,6 @@
   </div>
 
   <div class="sheet" id="map-sheet">
-    <div class="sheet-handle"></div>
     <div class="sheet-cat" id="sheet-cat"></div>
     <h3 class="sheet-title" id="sheet-title">Event</h3>
     <div class="sheet-meta" id="sheet-meta"></div>
@@ -1164,7 +1224,6 @@
   </div>
 
   <div class="map-list-drawer" id="map-list-drawer">
-    <div class="sheet-handle"></div>
     <div class="dh">
       <h3>Was in Dresden läuft</h3>
       <button class="modal-close" onclick="toggleList()"><svg><use href="#i-x"/></svg></button>
@@ -1176,14 +1235,14 @@
   <div class="view" id="notif-view">
     <div class="page-head">
       <h1 class="page-title">Inbox</h1>
-      <button class="page-action">Alle gelesen</button>
+      <button class="page-action" onclick="markAllRead()">Alle gelesen</button>
     </div>
     <div class="notif-list">
-      <div class="notif unread"><div class="avatar a1">KD</div><div class="txt"><b>@kicker_dresden</b> hat dich zu <b>Flanky Ball im Maraun Park</b> eingeladen.</div><div class="time">2m</div></div>
-      <div class="notif unread"><div class="avatar a2">VD</div><div class="txt">Deine Bewerbung für <b>Rooftop Chill &amp; Music</b> wurde angenommen.</div><div class="time">18m</div></div>
-      <div class="notif unread"><div class="avatar a3">EC</div><div class="txt"><b>3 Freunde</b> gehen zu <b>Afterwork BBQ Elbufer</b>.</div><div class="time">1h</div></div>
+      <div class="notif unread" data-event-id="1"><div class="avatar a1">KD</div><div class="txt"><b>@kicker_dresden</b> hat dich zu <b>Flanky Ball im Maraun Park</b> eingeladen.</div><div class="time">2m</div></div>
+      <div class="notif unread" data-event-id="2"><div class="avatar a2">VD</div><div class="txt">Deine Bewerbung für <b>Rooftop Chill &amp; Music</b> wurde angenommen.</div><div class="time">18m</div></div>
+      <div class="notif unread" data-event-id="3"><div class="avatar a3">EC</div><div class="txt"><b>3 Freunde</b> gehen zu <b>Afterwork BBQ Elbufer</b>.</div><div class="time">1h</div></div>
       <div class="notif"><div class="avatar a4">KG</div><div class="txt">Neues Programm bei <b>Katy's Garage</b>: Spieleabend heute 20:00.</div><div class="time">3h</div></div>
-      <div class="notif"><div class="avatar a5">CD</div><div class="txt">Neue Function in deiner Nähe: <b>Picknick &amp; Chill</b>.</div><div class="time">gestern</div></div>
+      <div class="notif" data-event-id="8"><div class="avatar a5">CD</div><div class="txt">Neue Function in deiner Nähe: <b>Picknick &amp; Chill</b>.</div><div class="time">gestern</div></div>
     </div>
   </div>
 
@@ -1192,9 +1251,9 @@
     <div style="position:relative;">
       <button class="settings-btn" onclick="toggleSettings()"><svg><use href="#i-settings"/></svg></button>
       <div class="profile-head">
-        <div class="profile-avatar">DU</div>
-        <div class="profile-handle">@deinname</div>
-        <p class="profile-bio">Dresden · Immer auf der Suche nach dem nächsten guten Abend.</p>
+        <div class="profile-avatar" id="profile-avatar-el">DU</div>
+        <div class="profile-handle" id="profile-handle-el">@deinname</div>
+        <p class="profile-bio" id="profile-bio-el">Dresden · Immer auf der Suche nach dem nächsten guten Abend.</p>
         <div class="profile-stats">
           <div class="item"><span class="num">3</span><span class="lbl">Erstellt</span></div>
           <span class="divider"></span>
@@ -1203,8 +1262,8 @@
           <div class="item"><span class="num">8</span><span class="lbl">Freunde</span></div>
         </div>
         <div class="profile-btns">
-          <button class="btn btn-ghost">Teilen</button>
-          <button class="btn btn-primary">Bearbeiten</button>
+          <button class="btn btn-ghost" onclick="shareProfile()">Teilen</button>
+          <button class="btn btn-primary" onclick="openEditProfile()">Bearbeiten</button>
         </div>
       </div>
     </div>
@@ -1247,9 +1306,9 @@
       <div class="mini-map" id="detail-mini-map"></div>
       <div id="detail-action"></div>
       <div class="share-row">
-        <button class="share-btn"><svg><use href="#i-share"/></svg>Teilen</button>
-        <button class="share-btn"><svg><use href="#i-copy"/></svg>Link</button>
-        <button class="share-btn"><svg><use href="#i-flag"/></svg>Melden</button>
+        <button class="share-btn" onclick="shareDetail()"><svg><use href="#i-share"/></svg>Teilen</button>
+        <button class="share-btn" onclick="copyLink()"><svg><use href="#i-copy"/></svg>Link</button>
+        <button class="share-btn" onclick="reportDetail()"><svg><use href="#i-flag"/></svg>Melden</button>
       </div>
     </div>
   </div>
@@ -1293,7 +1352,7 @@
         <button class="toggle-btn" data-p="private"><span class="t"><svg><use href="#i-lock"/></svg>Privat</span><span class="s">Nur in 500m · Bewerbung nötig</span></button>
       </div>
     </div>
-    <div class="field"><label class="label">Cover-Bild</label><div class="upload-box" onclick="toast('Upload in der Demo deaktiviert')"><div class="e"><svg><use href="#i-camera"/></svg></div><div style="font-weight:500;color:var(--text);font-size:13px;">Bild hochladen</div><div class="hint">JPG oder PNG · bis 5MB</div></div></div>
+    <div class="field"><label class="label">Cover-Bild</label><div class="upload-box" onclick="toast('Foto-Upload kommt mit der echten App')"><div class="e"><svg><use href="#i-camera"/></svg></div><div style="font-weight:500;color:var(--text);font-size:13px;">Bild hochladen</div><div class="hint">JPG oder PNG · bis 5MB</div></div></div>
     <div class="field"><label class="label">Max. Teilnehmer</label><div class="num-row"><button class="num-btn" onclick="changeNum(-1)">−</button><div class="num-val" id="f-num">15</div><button class="num-btn" onclick="changeNum(1)">+</button></div></div>
     <button class="submit-btn" onclick="submitCreate()">Function erstellen</button>
   </div>
@@ -1304,12 +1363,34 @@
   <div class="inner">
     <div class="head"><h3>Einstellungen</h3><button class="modal-close" onclick="toggleSettings()"><svg><use href="#i-x"/></svg></button></div>
     <div class="settings-list">
-      <div class="setting-row"><svg><use href="#i-bell"/></svg>Mitteilungen<span class="val">An</span></div>
-      <div class="setting-row"><svg><use href="#i-shield"/></svg>Datenschutz<span class="chev">›</span></div>
-      <div class="setting-row"><svg><use href="#i-globe"/></svg>Sprache<span class="val">Deutsch</span></div>
-      <div class="setting-row"><svg><use href="#i-help"/></svg>Hilfe & Support<span class="chev">›</span></div>
-      <div class="setting-row danger"><svg><use href="#i-logout"/></svg>Ausloggen</div>
+      <div class="setting-row" onclick="toggleNotifications(this)"><svg><use href="#i-bell"/></svg>Mitteilungen<span class="val">An</span></div>
+      <div class="setting-row" onclick="toast('Datenschutzeinstellungen kommen bald')"><svg><use href="#i-shield"/></svg>Datenschutz<span class="chev">›</span></div>
+      <div class="setting-row" onclick="toast('Aktuell nur Deutsch verfügbar')"><svg><use href="#i-globe"/></svg>Sprache<span class="val">Deutsch</span></div>
+      <div class="setting-row" onclick="toast('support@function4u.de')"><svg><use href="#i-help"/></svg>Hilfe & Support<span class="chev">›</span></div>
+      <div class="setting-row danger" onclick="logout()"><svg><use href="#i-logout"/></svg>Ausloggen</div>
     </div>
+  </div>
+</div>
+
+<!-- Search overlay -->
+<div class="search-overlay" id="search-overlay">
+  <div class="so-head">
+    <div class="so-input">
+      <svg><use href="#i-search"/></svg>
+      <input type="text" id="search-input" placeholder="Events oder Orte suchen..." autocomplete="off" />
+    </div>
+    <button class="so-close" onclick="closeSearch()"><svg><use href="#i-x"/></svg></button>
+  </div>
+  <div class="so-body" id="search-results"></div>
+</div>
+
+<!-- Profile edit modal -->
+<div class="modal" id="edit-profile-modal">
+  <div class="modal-panel">
+    <div class="modal-head"><h2 class="modal-title">Profil bearbeiten</h2><button class="modal-close" onclick="closeEditProfile()"><svg><use href="#i-x"/></svg></button></div>
+    <div class="field"><label class="label">Username</label><input class="input" id="edit-username" placeholder="@deinname" /></div>
+    <div class="field"><label class="label">Bio</label><textarea class="textarea" id="edit-bio" maxlength="140" placeholder="Erzähl kurz wer du bist..."></textarea></div>
+    <button class="submit-btn" onclick="saveProfile()">Speichern</button>
   </div>
 </div>
 
@@ -1547,8 +1628,11 @@ document.getElementById('filter-chips').addEventListener('click',ev=>{
    DETAIL
    ===================================================== */
 let detailMiniMap=null;
+let currentDetailId=null;
+let followState={}; /* id -> true/false */
 function openDetail(id){
   const e=events.find(x=>x.id===id);if(!e)return;
+  currentDetailId=id;
   showView('detail');
   const cover=document.getElementById('detail-cover');
   cover.className='detail-cover type-'+e.type;
@@ -1556,7 +1640,7 @@ function openDetail(id){
     <div class="detail-pattern"></div>
     <div class="detail-head-bar">
       <button class="icon-btn" onclick="showView('home')"><svg><use href="#i-chev-left"/></svg></button>
-      <button class="icon-btn"><svg><use href="#i-share"/></svg></button>
+      <button class="icon-btn" onclick="shareDetail()"><svg><use href="#i-share"/></svg></button>
     </div>
     <div class="detail-emoji">${e.emoji}</div>
     <div class="detail-cat-bar">
@@ -1567,6 +1651,15 @@ function openDetail(id){
   document.getElementById('detail-host-name').textContent=e.host;
   const hostAv=document.getElementById('detail-host-avatar');
   hostAv.textContent=initials(e.host);hostAv.className='avatar '+avClass(e.id*3);
+  const fb=document.querySelector('#detail-view .follow-btn');
+  if(fb){
+    const isFollowing=!!followState[e.id];
+    fb.textContent=isFollowing?'Folgt':'Folgen';
+    fb.style.background=isFollowing?'var(--accent-soft)':'';
+    fb.style.color=isFollowing?'var(--accent-hover)':'';
+    fb.style.border=isFollowing?'1px solid var(--accent)':'';
+    fb.onclick=()=>toggleFollow(e.id);
+  }
   document.getElementById('detail-info').innerHTML=`
     <div class="info-cell"><span class="k"><svg><use href="#i-calendar"/></svg>Datum</span><span class="v">${e.date}</span></div>
     <div class="info-cell"><span class="k"><svg><use href="#i-clock"/></svg>Uhrzeit</span><span class="v">${e.time==='LIVE'?'Läuft gerade':e.time}</span></div>
@@ -1579,16 +1672,19 @@ function openDetail(id){
   `).join('')+(e.attendees>4?`<div style="font-size:13px;color:var(--text-3);padding:2px 0 0 42px;">+ ${e.attendees-4} weitere</div>`:'');
 
   const act=document.getElementById('detail-action');
+  const joined=!!joinedState[e.id];
   if(e.privacy==='public'){
-    act.innerHTML=`<button class="submit-btn" onclick="joinEvent(${e.id});showView('home');">Dabei sein</button>`;
+    act.innerHTML=joined
+      ? `<button class="submit-btn" style="background:var(--accent);" onclick="toggleJoinDetail(${e.id})">Du bist dabei ✓</button>`
+      : `<button class="submit-btn" onclick="toggleJoinDetail(${e.id})">Dabei sein</button>`;
   } else {
     act.innerHTML=`<div class="apply-box">
       <h4><svg><use href="#i-lock"/></svg>Bewerbung senden</h4>
       <p class="sub">Dieses Event ist privat. Stell dich kurz vor, damit der Host entscheiden kann.</p>
       <textarea class="textarea" placeholder="Hey, ich bin… und würd gern vorbeikommen weil…"></textarea>
-      <div class="upload-box" style="padding:14px;font-size:13px;"><div class="e"><svg><use href="#i-camera"/></svg></div>Bild hinzufügen (optional)</div>
+      <div class="upload-box" style="padding:14px;font-size:13px;" onclick="toast('Foto-Upload kommt mit der echten App')"><div class="e"><svg><use href="#i-camera"/></svg></div>Bild hinzufügen (optional)</div>
     </div>
-    <button class="submit-btn" onclick="toast('Bewerbung gesendet');showView('home');">Bewerbung senden</button>`;
+    <button class="submit-btn" onclick="toast('Bewerbung gesendet. Wir melden uns.');showView('home');">Bewerbung senden</button>`;
   }
   setTimeout(()=>{
     const c=document.getElementById('detail-mini-map');c.innerHTML='';
@@ -1831,8 +1927,297 @@ function renderProfile(){
   visited.innerHTML=visList.map(card).join('');
 }
 
-function toggleSettings(){ document.getElementById('settings-panel').classList.toggle('open'); }
+function toggleSettings(){
+  const p=document.getElementById('settings-panel');
+  p.classList.toggle('open');
+  document.body.style.overflow=p.classList.contains('open')?'hidden':'';
+}
 document.getElementById('settings-panel').addEventListener('click',ev=>{ if(ev.target.id==='settings-panel') toggleSettings(); });
+
+/* =====================================================
+   JOIN / FOLLOW STATE + DETAIL INTERACTIONS
+   ===================================================== */
+let joinedState={};
+function toggleJoinDetail(id){
+  const e=events.find(x=>x.id===id);if(!e)return;
+  if(joinedState[id]){
+    joinedState[id]=false;
+    if(e.attendees>0) e.attendees--;
+    toast('Nicht mehr dabei');
+  } else {
+    if(e.attendees>=e.maxAttendees){ toast('Event ist voll'); return; }
+    joinedState[id]=true;
+    e.attendees++;
+    toast(`Du bist dabei bei „${e.title}"`);
+  }
+  openDetail(id);
+}
+function toggleFollow(id){
+  followState[id]=!followState[id];
+  const fb=document.querySelector('#detail-view .follow-btn');
+  if(!fb) return;
+  const on=!!followState[id];
+  fb.textContent=on?'Folgt':'Folgen';
+  fb.style.background=on?'var(--accent-soft)':'';
+  fb.style.color=on?'var(--accent-hover)':'';
+  fb.style.border=on?'1px solid var(--accent)':'';
+  toast(on?'Host wird gefolgt':'Entfolgt');
+}
+async function shareDetail(){
+  const e=events.find(x=>x.id===currentDetailId);
+  const title=e?e.title:'Function 4 U';
+  if(navigator.share){
+    try{ await navigator.share({title,text:title,url:window.location.href}); }
+    catch(err){ /* user cancelled */ }
+  } else {
+    copyLink();
+  }
+}
+async function copyLink(){
+  try{
+    await navigator.clipboard.writeText(window.location.href);
+    toast('Link kopiert');
+  } catch(err){
+    toast('Link kopiert');
+  }
+}
+function reportDetail(){ toast('Event wurde gemeldet. Wir prüfen es.'); }
+
+/* =====================================================
+   HOME FEED EXTRAS
+   ===================================================== */
+function scrollToFeed(){
+  const f=document.getElementById('feed');
+  if(!f) return;
+  window.scrollTo({top:f.offsetTop-80,behavior:'smooth'});
+}
+function applyTrendFilter(cat){
+  const chip=document.querySelector(`#filter-chips .chip[data-f="${cat}"]`);
+  if(chip){
+    document.querySelectorAll('#filter-chips .chip').forEach(x=>x.classList.remove('active'));
+    chip.classList.add('active');
+    currentFilter=cat;
+    renderFeed(cat);
+    chip.scrollIntoView({behavior:'smooth',inline:'center',block:'nearest'});
+  }
+  setTimeout(scrollToFeed,80);
+}
+
+/* =====================================================
+   SEARCH OVERLAY
+   ===================================================== */
+function openSearch(){
+  const o=document.getElementById('search-overlay');
+  o.classList.add('open');
+  document.body.style.overflow='hidden';
+  renderSearchResults('');
+  setTimeout(()=>document.getElementById('search-input').focus(),60);
+}
+function closeSearch(){
+  const o=document.getElementById('search-overlay');
+  o.classList.remove('open');
+  document.body.style.overflow='';
+  document.getElementById('search-input').value='';
+}
+function renderSearchResults(q){
+  const body=document.getElementById('search-results');
+  const needle=q.trim().toLowerCase();
+  let evs=events, vns=venues;
+  if(needle){
+    evs=events.filter(e=>e.title.toLowerCase().includes(needle)||e.location.toLowerCase().includes(needle));
+    vns=venues.filter(v=>v.name.toLowerCase().includes(needle)||v.address.toLowerCase().includes(needle));
+  }
+  if(evs.length===0 && vns.length===0){
+    body.innerHTML=`<div class="so-empty"><div class="t">Nichts gefunden</div><div class="s">Versuch es mit einem anderen Begriff.</div></div>`;
+    return;
+  }
+  const evHtml=evs.map(e=>`
+    <div class="list-item" onclick="closeSearch();openDetail(${e.id});">
+      <div class="ic"><span class="e-mono">${e.emoji}</span></div>
+      <div class="txt"><div class="t">${e.title}</div><div class="m">${e.time==='LIVE'?'Live':e.date+' · '+e.time}<span class="sep">·</span>${e.location}</div></div>
+      <div class="right"><span class="pill ${e.time==='LIVE'?'live':''}">${e.time==='LIVE'?'Live':e.distance}</span></div>
+    </div>`).join('');
+  const vnHtml=vns.map(v=>`
+    <div class="list-item venue" onclick="closeSearch();showView('map');setTimeout(()=>openSheetVenue('${v.id}'),200);">
+      <div class="ic"><span class="e-mono">${v.emoji}</span></div>
+      <div class="txt"><div class="t">${v.name}</div><div class="m">${v.kind}<span class="sep">·</span>${v.address}</div></div>
+      <div class="right"><span class="pill venue">Venue</span></div>
+    </div>`).join('');
+  body.innerHTML=evHtml+vnHtml;
+}
+document.getElementById('search-input').addEventListener('input',ev=>renderSearchResults(ev.target.value));
+document.getElementById('search-overlay').addEventListener('click',ev=>{ if(ev.target.id==='search-overlay') closeSearch(); });
+document.addEventListener('keydown',ev=>{
+  if(ev.key==='Escape'){
+    if(document.getElementById('search-overlay').classList.contains('open')) closeSearch();
+    else if(document.getElementById('create-modal').classList.contains('open')) closeCreate();
+    else if(document.getElementById('edit-profile-modal').classList.contains('open')) closeEditProfile();
+    else if(document.getElementById('map-sheet').classList.contains('open')) closeSheet();
+    else if(document.getElementById('map-list-drawer').classList.contains('open')) closeList();
+    else if(document.getElementById('settings-panel').classList.contains('open')) toggleSettings();
+  }
+});
+
+/* =====================================================
+   MAP SEARCH — filter markers opacity
+   ===================================================== */
+function mapSearch(q){
+  const needle=q.trim().toLowerCase();
+  if(!markerLayer) return;
+  markerLayer.eachLayer(layer=>{
+    if(!layer._icon) return;
+    const el=layer._icon.querySelector('.map-marker');
+    if(!el) return;
+    if(!needle){ el.style.opacity='1'; return; }
+    const hay=(layer._searchText||'').toLowerCase();
+    el.style.opacity=hay.includes(needle)?'1':'0.2';
+  });
+}
+
+/* =====================================================
+   NOTIFICATIONS
+   ===================================================== */
+function markAllRead(){
+  document.querySelectorAll('#notif-view .notif.unread').forEach(n=>n.classList.remove('unread'));
+  document.querySelectorAll('.notif-dot').forEach(d=>d.remove());
+  toast('Alle als gelesen markiert');
+}
+document.querySelectorAll('#notif-view .notif').forEach(n=>{
+  n.addEventListener('click',()=>{
+    n.classList.remove('unread');
+    if(!document.querySelector('#notif-view .notif.unread')){
+      document.querySelectorAll('.notif-dot').forEach(d=>d.remove());
+    }
+    const eid=parseInt(n.dataset.eventId,10);
+    if(eid && events.find(e=>e.id===eid)) openDetail(eid);
+  });
+});
+
+/* =====================================================
+   PROFILE EDIT + SHARE + LOGOUT + SETTINGS
+   ===================================================== */
+function openEditProfile(){
+  document.getElementById('edit-username').value=document.getElementById('profile-handle-el').textContent.replace(/^@/,'');
+  document.getElementById('edit-bio').value=document.getElementById('profile-bio-el').textContent;
+  document.getElementById('edit-profile-modal').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeEditProfile(){
+  document.getElementById('edit-profile-modal').classList.remove('open');
+  document.body.style.overflow='';
+}
+document.getElementById('edit-profile-modal').addEventListener('click',ev=>{ if(ev.target.id==='edit-profile-modal') closeEditProfile(); });
+function saveProfile(){
+  const name=document.getElementById('edit-username').value.trim()||'deinname';
+  const bio=document.getElementById('edit-bio').value.trim()||'Dresden · Immer auf der Suche nach dem nächsten guten Abend.';
+  document.getElementById('profile-handle-el').textContent='@'+name.replace(/^@/,'');
+  document.getElementById('profile-bio-el').textContent=bio;
+  document.getElementById('profile-avatar-el').textContent=name.substring(0,2).toUpperCase();
+  USER.name=name.replace(/^@/,'');
+  closeEditProfile();
+  toast('Profil gespeichert');
+}
+async function shareProfile(){
+  if(navigator.share){
+    try{ await navigator.share({title:'Function 4 U',text:'Schau dir mein Profil an',url:window.location.href}); }
+    catch(err){}
+  } else {
+    try{ await navigator.clipboard.writeText(window.location.href); }catch(e){}
+    toast('Link kopiert');
+  }
+}
+function toggleNotifications(row){
+  const v=row.querySelector('.val');
+  if(!v) return;
+  v.textContent=v.textContent==='An'?'Aus':'An';
+}
+function logout(){
+  toggleSettings();
+  setTimeout(()=>{
+    document.getElementById('splash').style.opacity='1';
+    document.getElementById('splash').style.display='flex';
+    document.getElementById('app').style.display='none';
+  },400);
+}
+
+/* =====================================================
+   BODY OVERFLOW LOCKS + SHEET/DRAWER MUTUAL EXCLUSION
+   ===================================================== */
+(function(){
+  const sheet=document.getElementById('map-sheet');
+  const drawer=document.getElementById('map-list-drawer');
+
+  const _openSheetEvent=openSheetEvent;
+  openSheetEvent=function(id){ closeList(); _openSheetEvent(id); document.body.style.overflow='hidden'; };
+  const _openSheetVenue=openSheetVenue;
+  openSheetVenue=function(id){ closeList(); _openSheetVenue(id); document.body.style.overflow='hidden'; };
+  const _closeSheet=closeSheet;
+  closeSheet=function(){ _closeSheet(); if(!drawer.classList.contains('open')) document.body.style.overflow=''; };
+
+  const _toggleList=toggleList;
+  toggleList=function(){
+    const willOpen=!drawer.classList.contains('open');
+    if(willOpen) closeSheet();
+    _toggleList();
+    document.body.style.overflow=drawer.classList.contains('open')?'hidden':'';
+  };
+  const _closeList=closeList;
+  closeList=function(){ _closeList(); if(!sheet.classList.contains('open')) document.body.style.overflow=''; };
+})();
+
+/* =====================================================
+   SWIPE TO CLOSE — sheet + drawer
+   ===================================================== */
+function attachSwipeClose(el,onClose){
+  let startY=null,currentY=null,dragging=false;
+  el.addEventListener('touchstart',ev=>{
+    if(ev.touches.length!==1) return;
+    if(el.scrollTop>0) return; /* only when scrolled to top */
+    startY=ev.touches[0].clientY;currentY=startY;dragging=true;
+    el.style.transition='none';
+  },{passive:true});
+  el.addEventListener('touchmove',ev=>{
+    if(!dragging||startY===null) return;
+    currentY=ev.touches[0].clientY;
+    const dy=currentY-startY;
+    if(dy>0) el.style.transform=`translateY(${dy}px)`;
+  },{passive:true});
+  el.addEventListener('touchend',()=>{
+    if(!dragging) return;
+    dragging=false;
+    el.style.transition='';
+    const dy=(currentY||0)-(startY||0);
+    if(dy>80){ el.style.transform=''; onClose(); }
+    else { el.style.transform=''; }
+    startY=null;currentY=null;
+  });
+}
+attachSwipeClose(document.getElementById('map-sheet'),()=>closeSheet());
+attachSwipeClose(document.getElementById('map-list-drawer'),()=>closeList());
+
+/* =====================================================
+   MARKER SEARCH TEXT INDEX
+   ===================================================== */
+const _renderMap=renderMap;
+renderMap=function(){
+  _renderMap();
+  if(!markerLayer) return;
+  markerLayer.eachLayer(layer=>{
+    /* find closest event/venue by coords to attach search text */
+    if(!layer.getLatLng) return;
+    const ll=layer.getLatLng();
+    const evMatch=events.find(e=>Math.abs(e.coords[0]-ll.lat)<.0005&&Math.abs(e.coords[1]-ll.lng)<.0005);
+    const vnMatch=venues.find(v=>Math.abs(v.coords[0]-ll.lat)<.0005&&Math.abs(v.coords[1]-ll.lng)<.0005);
+    if(evMatch) layer._searchText=evMatch.title+' '+evMatch.location;
+    else if(vnMatch) layer._searchText=vnMatch.name+' '+vnMatch.address;
+  });
+  const q=document.getElementById('map-search-input');
+  if(q && q.value) mapSearch(q.value);
+};
+
+/* =====================================================
+   CREATE modal body-lock already handled; ensure close on backdrop */
+
 
 /* =====================================================
    BOOT
